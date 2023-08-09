@@ -11,5 +11,9 @@ class ExpenseCategories extends Model
 
     protected $fillable = ['name'];
 
-    
+    public function expenses()
+    {
+        // return $this->hasMany(Income::class, 'income_category_id');
+        return $this->hasMany(Expense::class, 'expense_category_id');
+    }
 }

@@ -17,28 +17,37 @@
     <link href="{{ asset('css/animate.css') }}" rel="stylesheet" />
     <link href="{{ asset('css/style.css') }}" rel="stylesheet" />
 
+    <link rel="stylesheet" href="{{ asset('css/query.dataTables.min.css') }}">
+    <script src="{{ asset('js/jquery-3.7.0.min.js') }}"></script>
+    <script src="{{ asset('js/jqueryDataTable.min.js') }}"></script>
+
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    {{-- <script src="https://kit.fontawesome.com/0e5659ef6a.js" crossorigin="anonymous"></script> --}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-            <div class="container">
+        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm py-2">
+            <div class="container d-flex align-items-center">
                 <a class="navbar-brand" href="{{ url('/dashboard') }}">
-                    <h4>Dashboard</h4>
+                    <i class="fa-solid fa-wallet navIcon"></i>
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
+                    <i class="fa-solid fa-bars "></i>
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav ms-auto">
+                    <ul class="navbar-nav me-auto">
 
                         @auth
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ url('/dashboard') }}">Dashboard</a>
+                            </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ url('/income') }}">Income</a>
                             </li>

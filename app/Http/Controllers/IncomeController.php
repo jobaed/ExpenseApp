@@ -14,7 +14,7 @@ class IncomeController extends Controller
      */
     public function index()
     {
-        // return IncomeCategories::with('incomes')->find(1);
+        
 
         return view('layouts.income');
     }
