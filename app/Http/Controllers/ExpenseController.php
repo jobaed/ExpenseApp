@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
 use App\Models\Expense;
+use Illuminate\Http\Request;
+use App\Models\ExpenseCategories;
 use App\Http\Requests\StoreExpenseRequest;
 use App\Http\Requests\UpdateExpenseRequest;
 
@@ -13,8 +16,36 @@ class ExpenseController extends Controller
      */
     public function index()
     {
-        return view('layouts.expense');
+
+        $expense = Expense::with(['ExpenseCategory'])->get();
+
+        $totalExpense = Expense::sum('amount');
+        $totalExpense = intval($totalExpense);
+
+        $expenseCategory = ExpenseCategories::all();
+
+
+        return view('layouts.expense', compact('totalExpense','expense','expenseCategory'));
     }
+
+
+    public function addexpense(Request $request){
+        try{
+            Expense::create([
+                'title'=>$request->title,
+                'expense_category_id'=>$request->expense_category_id,
+                'description'=>$request->description,
+                'amount'=>$request->amount,
+                'expense_date'=>$request->expense_date
+            ]);
+
+            return redirect()->back()->with('message', 'Added Income Record');
+        }
+        catch(Exception $e){
+            return $e;
+        }
+    }
+
 
     /**
      * Show the form for creating a new resource.

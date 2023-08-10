@@ -36,4 +36,11 @@ Route::group( ['middleware' => ['auth']], function () {
     Route::delete( '/income-category/{id}', [IncomeCategoriesController::class, 'deleteCategory'] )->name('delete.income.category')->middleware( Authenticate::class );
     Route::post( '/expense-category', [ExpenseCategoriesController::class, 'addCategory'] )->name('store.income.category')->middleware( Authenticate::class );
     Route::delete( '/expense-category/{id}', [ExpenseCategoriesController::class, 'deleteCategory'] )->name('delete.income.category')->middleware( Authenticate::class );
+
+
+
+    Route::post( '/add-income', [IncomeController::class, 'addIncome'] )->name('store.income')->middleware( Authenticate::class );
+    Route::post( '/add-expense', [ExpenseController::class, 'addexpense'] )->name('store.expense')->middleware( Authenticate::class );
 } );
+    
+

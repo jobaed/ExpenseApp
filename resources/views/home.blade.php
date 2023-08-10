@@ -5,16 +5,37 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header">
-                        <h3 class="ExpenseHeading">Expense Summary</h3>
+                    <div class="card-header" >
+                        <h3 class="ExpenseHeading" >Expense Summary</h3>
+                       
                     </div>
 
-                    <div class="card-body">
+                    <div class="card-body" >
 
                         <div class="container-fluid">
                             <div class="row">
 
-                                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 animated fadeIn p-2">
+                                <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12 animated fadeIn p-2 shadow rounded">
+                                    <div class="card card-plain h-100 bg-white " >
+                                        <div class="p-5">
+                                            <div class="row">
+                                                <div class="col-9 col-lg-8 col-md-8 col-sm-9">
+                                                    <div>
+                                                        <h2 class="mb-0 text-capitalize font-weight-bold">{{ $totalIncome-$totalExpense }} <i class="ps-1 fa-solid fa-bangladeshi-taka-sign" style="font-size: 18px"></i></h2>
+                                                        <h5 class="mb-0 text-md ExpenseHeading">Present </h5>
+                                                    </div>
+                                                </div>
+                                                <div class="col-3 col-lg-4 col-md-4 col-sm-3 text-end">
+                                                    <div
+                                                        class="icon icon-shape bg-gradient-primary shadow float-end border-radius-md">
+                                                        <img class="w-100 blackIconForWhite" src="{{ asset('images/present.png') }}" /> 
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12 animated fadeIn p-2 shadow rounded">
                                     <div class="card card-plain h-100 bg-white">
                                         <div class="p-5">
                                             <div class="row">
@@ -34,14 +55,14 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 animated fadeIn p-2">
+                                <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12 animated fadeIn p-2 shadow rounded">
                                     <div class="card card-plain h-100 bg-white">
                                         <div class="p-5">
                                             <div class="row">
                                                 <div class="col-9 col-lg-8 col-md-8 col-sm-9">
                                                     <div>
                                                         <h2 class="mb-0 text-capitalize font-weight-bold">15,0000 <i class="ps-1 fa-solid fa-bangladeshi-taka-sign" style="font-size: 18px"></i></h2>
-                                                        <h5 class="mb-0 text-md ExpenseHeading">Expense</h5>
+                                                        <h5 class="mb-0 text-md ExpenseHeading">{{ $totalExpense }}</h5>
                                                     </div>
                                                 </div>
                                                 <div class="col-3 col-lg-4 col-md-4 col-sm-3 text-end">
@@ -85,7 +106,6 @@
                                                         <th>Description</th>
                                                         <th>Amount</th>
                                                         <th>Income Date</th>
-                                                        <th>Action</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody id="tableList">
@@ -97,21 +117,7 @@
                                                             <td>{{ $item->description }}</td>
                                                             <td><span class="incomeMony bg-success">{{ $item->amount }}</span></td>
                                                             <td>{{ $item->income_date }}</td>
-                                                            <td>
-                                                                <button class="btn btn-success"><i
-                                                                        class="fa-solid fa-eye"></i></button>
-
-                                                                {{-- <button class="btn btn-danger"><i
-                                                                        class="fa-solid fa-trash"></i></button> --}}
-                                                                <form action=""
-                                                                    method="POST" style="display: inline-block">
-                                                                    @csrf
-                                                                    @method('DELETE')
-                                                                    <button type="submit"
-                                                                        class="btn btn-danger"><i
-                                                                        class="fa-solid fa-trash"></i></button>
-                                                                </form>
-                                                            </td>
+                                                            
                                                         </tr>
                                                     @endforeach
                                                 </tbody>
@@ -147,7 +153,6 @@
                                                         <th>Description</th>
                                                         <th>Amount</th>
                                                         <th>Expense Date</th>
-                                                        <th>Action</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody id="tableList">
@@ -159,21 +164,7 @@
                                                             <td>{{ $item->description }}</td>
                                                             <td><span class="incomeMony bg-danger">{{ $item->amount }}</span></td>
                                                             <td>{{ $item->expense_date }}</td>
-                                                            <td>
-                                                                <button class="btn btn-success"><i
-                                                                        class="fa-solid fa-eye"></i></button>
-
-                                                                {{-- <button class="btn btn-danger"><i
-                                                                        class="fa-solid fa-trash"></i></button> --}}
-                                                                <form action=""
-                                                                    method="POST" style="display: inline-block">
-                                                                    @csrf
-                                                                    @method('DELETE')
-                                                                    <button type="submit"
-                                                                        class="btn btn-danger"><i
-                                                                        class="fa-solid fa-trash"></i></button>
-                                                                </form>
-                                                            </td>
+                                                            
                                                         </tr>
                                                     @endforeach
                                                 </tbody>

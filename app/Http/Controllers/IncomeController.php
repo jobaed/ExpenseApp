@@ -6,6 +6,8 @@ use App\Models\Income;
 use App\Http\Requests\StoreIncomeRequest;
 use App\Http\Requests\UpdateIncomeRequest;
 use App\Models\IncomeCategories;
+use Exception;
+use Illuminate\Http\Request;
 
 class IncomeController extends Controller
 {
@@ -14,9 +16,33 @@ class IncomeController extends Controller
      */
     public function index()
     {
-        
 
-        return view('layouts.income');
+        $incomes = Income::with(['IncomeCategory'])->get();
+
+        $totalIncome = Income::sum('amount');
+        $totalIncome = intval($totalIncome);
+
+        $incomeCategory = IncomeCategories::all();
+
+
+        return view('layouts.income', compact('totalIncome','incomes','incomeCategory'));
+    }
+
+    public function addIncome(Request $request){
+        try{
+            Income::create([
+                'title'=>$request->title,
+                'income_category_id'=>$request->income_category_id,
+                'description'=>$request->description,
+                'amount'=>$request->amount,
+                'income_date'=>$request->income_date
+            ]);
+
+            return redirect()->back()->with('message', 'Added Income Record');
+        }
+        catch(Exception $e){
+            return $e;
+        }
     }
 
     /**

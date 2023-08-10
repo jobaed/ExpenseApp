@@ -38,32 +38,6 @@
                                     <div class="col-md-12 col-sm-12 col-lg-12 p-0 m-0">
                                         <div class="card px-3 py-3">
 
-
-                                            {{-- <table class="table" id="tableData">
-                                                <thead>
-                                                    <tr class="bg-light">
-                                                        <th>No</th>
-                                                        <th>Category Name</th>
-                                                        <th>Action</th>
-                                                    </tr>
-                                                </thead>
-                                                @foreach ($categories as $category)
-                                                    <tbody >
-                                                        <td>{{ $category->id }}</td>
-                                                        <td>{{ $category->name }}</td>
-                                                        <td>
-                                                            <button class="btn btn-success"><i
-                                                                    class="fa-solid fa-eye"></i></button>
-
-                                                            <button class="btn btn-danger"><i
-                                                                    class="fa-solid fa-trash"></i></button>
-                                                            </a>
-                                                        </td>
-                                                    </tbody>
-                                                @endforeach
-
-                                            </table> --}}
-
                                             <table id="myTable" class="display">
                                                 <thead>
                                                     <tr>

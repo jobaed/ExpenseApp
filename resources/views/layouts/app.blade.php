@@ -17,14 +17,15 @@
     <link href="{{ asset('css/animate.css') }}" rel="stylesheet" />
     <link href="{{ asset('css/style.css') }}" rel="stylesheet" />
 
-    <link rel="stylesheet" href="{{ asset('css/query.dataTables.min.css') }}">
-    <script src="{{ asset('js/jquery-3.7.0.min.js') }}"></script>
-    <script src="{{ asset('js/jqueryDataTable.min.js') }}"></script>
-
+   <link rel="stylesheet" href="{{ asset('css/dataTables.min.css') }}">
+   <script src="{{ asset('js/jquery-3.7.0.min.js') }}"></script>
+   <script src="{{ asset('js/dataTables.min.js') }}"></script>
+    
+    
+    <script src="https://kit.fontawesome.com/0e5659ef6a.js" crossorigin="anonymous"></script>
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
-    {{-- <script src="https://kit.fontawesome.com/0e5659ef6a.js" crossorigin="anonymous"></script> --}}
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
 </head>
 
 <body>
@@ -104,6 +105,7 @@
             @yield('content')
         </main>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 </body>
 
 </html>
