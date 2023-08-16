@@ -107,16 +107,21 @@
                                                             </td>
                                                             <td>{{ $item->income_date }}</td>
                                                             <td>
-                                                                <button class="btn btn-success"><i
-                                                                        class="fa-solid fa-eye"></i></button>
+                                                                <button data-id="{{ $item->id }}"
+                                                                    data-title="{{ $item->title }}"
+                                                                    data-cat="{{ $item->IncomeCategory->id }}"
+                                                                    data-description="{{ $item->description }}"
+                                                                    data-amount="{{ $item->amount }}"
+                                                                    data-income_date="{{ $item->income_date }}"
+                                                                    class="btn btn-success editBtn" data-bs-toggle="modal"
+                                                                    data-bs-target="#editIncome"><i
+                                                                        class="fa-solid fa-pen"></i></button>
 
-                                                                {{-- <button class="btn btn-danger"><i
-                                                                        class="fa-solid fa-trash"></i></button> --}}
-                                                                <form action="" method="POST"
-                                                                    style="display: inline-block">
+                                                                <form action="{{ route('income.destroy', $item->id) }}"
+                                                                    method="POST" style="display: inline-block">
                                                                     @csrf
                                                                     @method('DELETE')
-                                                                    <button type="submit" class="btn btn-danger"><i
+                                                                    <button type="submit" class="btn  btn-danger"><i
                                                                             class="fa-solid fa-trash"></i></button>
                                                                 </form>
                                                             </td>
@@ -195,6 +200,12 @@
 
 
 
+
+
+
+
+
+
     <script>
         $(document).ready(function() {
             var table = $('#myTable').DataTable({
@@ -209,6 +220,95 @@
                     }
                 }
             });
+
+
+
+            $('.editBtn').click(function() {
+                let id = $(this).data('id');
+                let title = $(this).data('title');
+                let IncomeCategoryId = $(this).data('cat');
+                let description = $(this).data('description');
+                let amount = $(this).data('amount');
+                let income_date = $(this).data('income_date');
+
+
+
+                document.getElementById("utitle").value = title;
+                $('#catSelect > option').each(function() {
+                    if ($(this).val() == IncomeCategoryId) {
+                        $(this).attr("selected", "selected");
+                    }
+                });
+                document.getElementById("udescription").value = description;
+                document.getElementById("amount").value = amount;
+                document.getElementById("incomeDate").value = income_date;
+                document.getElementById("update_id").value = id;
+
+
+
+
+
+
+            });
+
+
         });
     </script>
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="editIncome" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5 ExpenseHeading" id="exampleModalLabel">Edit Income</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="{{ route('store.income') }}" method="POST">
+                    @csrf
+                    <div class="modal-body">
+
+
+
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-12 p-1">
+                                    <input type="hidden" name="update_id" id="update_id">
+                                    <label class="form-label">Title *</label>
+                                    <input type="text" name="title" id="utitle" class="form-control">
+                                </div>
+                                <div class="col-12 p-1">
+                                    <label class="form-label">Income Category *</label>
+                                    <select name="income_category_id" id="catSelect" class="form-control">
+                                        <option value="">Select Catrgory</option>
+                                        @foreach ($incomeCategory as $cat)
+                                            <option value="{{ $cat->id }}">{{ $cat->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="col-12 p-1">
+                                    <label class="form-label">Description *</label>
+                                    <textarea name="description" id="udescription" cols="10" rows="5" class="form-control"></textarea>
+                                </div>
+                                <div class="col-12 p-1">
+                                    <label class="form-label">Amount *</label>
+                                    <input type="text" id="amount" name="amount" class="form-control">
+                                </div>
+                                <div class="col-12 p-1">
+                                    <label class="form-label">Income Date *</label>
+                                    <input type="date" id="incomeDate" name="income_date" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="float-end btn m-0 btn-sm bg-gradient-faded-light me-3"
+                            data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="float-end btn m-0 btn-sm bg-gradient-primary">Save changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 @endsection

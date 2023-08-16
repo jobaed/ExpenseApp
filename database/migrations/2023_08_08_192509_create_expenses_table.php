@@ -8,12 +8,12 @@ return new class extends Migration {
     /**
      * Run the migrations.
      */
-    public function up(): void{
+    public function up(): void {
         Schema::create( 'expenses', function ( Blueprint $table ) {
             $table->id();
 
-            $table->unsignedBigInteger('expense_category_id');
-            $table->foreign('expense_category_id')->references('id')->on('expense_categories')
+            $table->unsignedBigInteger( 'expense_category_id' );
+            $table->foreign( 'expense_category_id' )->references( 'id' )->on( 'expense_categories' )
                 ->restrictOnDelete()
                 ->cascadeOnUpdate();
 
@@ -29,7 +29,7 @@ return new class extends Migration {
     /**
      * Reverse the migrations.
      */
-    public function down(): void{
+    public function down(): void {
         Schema::dropIfExists( 'expenses' );
     }
 };

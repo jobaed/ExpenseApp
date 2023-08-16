@@ -12,7 +12,8 @@
                             </div>
 
                             <div class="align-items-center col">
-                                <a href="{{ url('/expense-category') }}" class="float-end btn m-0 btn-sm bg-gradient-primary">  Expense
+                                <a href="{{ url('/expense-category') }}"
+                                    class="float-end btn m-0 btn-sm bg-gradient-primary"> Expense
                                     Category</a>
                             </div>
                         </div>
@@ -32,13 +33,15 @@
                             <div class="row">
 
 
-                                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 animated fadeIn p-2 shadow rounded">
+                                <div
+                                    class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 animated fadeIn p-2 shadow rounded">
                                     <div class="card card-plain h-100 bg-white">
                                         <div class="p-5">
                                             <div class="row">
                                                 <div class="col-9 col-lg-8 col-md-8 col-sm-9">
                                                     <div>
-                                                        <h2 class="mb-0 text-capitalize font-weight-bold">{{ $totalExpense }} <i
+                                                        <h2 class="mb-0 text-capitalize font-weight-bold">
+                                                            {{ $totalExpense }} <i
                                                                 class="ps-1 fa-solid fa-bangladeshi-taka-sign"
                                                                 style="font-size: 18px"></i></h2>
                                                         <h5 class="mb-0 text-md ExpenseHeading"> Expense</h5>
@@ -104,12 +107,18 @@
                                                             </td>
                                                             <td>{{ $item->expense_date }}</td>
                                                             <td>
-                                                                <button class="btn btn-success"><i
-                                                                        class="fa-solid fa-eye"></i></button>
+                                                                <button data-id="{{ $item->id }}"
+                                                                    data-title="{{ $item->title }}"
+                                                                    data-cat="{{ $item->ExpenseCategory->id }}"
+                                                                    data-description="{{ $item->description }}"
+                                                                    data-amount="{{ $item->amount }}"
+                                                                    data-expense_date="{{ $item->expense_date }}"
+                                                                    class="btn btn-success editBtn" data-bs-toggle="modal"
+                                                                    data-bs-target="#editIncome"><i
+                                                                        class="fa-solid fa-pen"></i></button>
 
-                                                                {{-- <button class="btn btn-danger"><i
-                                                                        class="fa-solid fa-trash"></i></button> --}}
-                                                                <form action="" method="POST"
+
+                                                                <form action="{{ route('expense.destroy', $item->id) }}" method="POST"
                                                                     style="display: inline-block">
                                                                     @csrf
                                                                     @method('DELETE')
@@ -136,77 +145,163 @@
 
 
 
-        <!-- Modal -->
-        <div class="modal fade" id="addIncome" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5 ExpenseHeading" id="exampleModalLabel">Add Expense</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <form action="{{ route('store.expense') }}" method="POST">
-                        @csrf
-                        <div class="modal-body">
-    
-    
-    
-                            <div class="container">
-                                <div class="row">
-                                    <div class="col-12 p-1">
-                                        <label class="form-label">Title *</label>
-                                        <input type="text" name="title" class="form-control">
-                                    </div>
-                                    <div class="col-12 p-1">
-                                        <label class="form-label">Income Category *</label>
-                                        <select name="expense_category_id" id="" class="form-control">
-                                            <option value="">Select Catrgory</option>
-                                            @foreach ($expenseCategory as $cat)
-                                                <option value="{{ $cat->id }}">{{ $cat->name }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <div class="col-12 p-1">
-                                        <label class="form-label">Description *</label>
-                                        <textarea name="description" id="" cols="10" rows="5" class="form-control"></textarea>
-                                    </div>
-                                    <div class="col-12 p-1">
-                                        <label class="form-label">Amount *</label>
-                                        <input type="text" name="amount" class="form-control">
-                                    </div>
-                                    <div class="col-12 p-1">
-                                        <label class="form-label">Income Date *</label>
-                                        <input type="date" name="expense_date" class="form-control">
-                                    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="addIncome" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5 ExpenseHeading" id="exampleModalLabel">Add Expense</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="{{ route('store.expense') }}" method="POST">
+                    @csrf
+                    <div class="modal-body">
+
+
+
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-12 p-1">
+                                    <label class="form-label">Title *</label>
+                                    <input type="text" name="title" class="form-control">
+                                </div>
+                                <div class="col-12 p-1">
+                                    <label class="form-label">Income Category *</label>
+                                    <select name="expense_category_id" id="" class="form-control">
+                                        <option value="">Select Catrgory</option>
+                                        @foreach ($expenseCategory as $cat)
+                                            <option value="{{ $cat->id }}">{{ $cat->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="col-12 p-1">
+                                    <label class="form-label">Description *</label>
+                                    <textarea name="description" id="" cols="10" rows="5" class="form-control"></textarea>
+                                </div>
+                                <div class="col-12 p-1">
+                                    <label class="form-label">Amount *</label>
+                                    <input type="text" name="amount" class="form-control">
+                                </div>
+                                <div class="col-12 p-1">
+                                    <label class="form-label">Income Date *</label>
+                                    <input type="date" name="expense_date" class="form-control">
                                 </div>
                             </div>
-    
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="float-end btn m-0 btn-sm bg-gradient-faded-light me-3"
-                                data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="float-end btn m-0 btn-sm bg-gradient-primary">Save changes</button>
-                        </div>
-                    </form>
-                </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="float-end btn m-0 btn-sm bg-gradient-faded-light me-3"
+                            data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="float-end btn m-0 btn-sm bg-gradient-primary">Save changes</button>
+                    </div>
+                </form>
             </div>
         </div>
-    
-    
-    
-        <script>
-            $(document).ready(function() {
-                var table = $('#myTable').DataTable({
-                    order: [
-                        [0, 'desc']
-                    ],
-                    lengthMenu: [5, 10, 15, 20, 25, 30, 35, 40, 45, 50],
-                    language: {
-                        paginate: {
-                            next: '&#8594;', // Right arrow
-                            previous: '&#8592;' // Left arrow
-                        }
+    </div>
+
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="editIncome" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5 ExpenseHeading" id="exampleModalLabel">Edit Income</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="{{ route('store.expense') }}" method="POST">
+                    @csrf
+                    <div class="modal-body">
+
+
+
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-12 p-1">
+                                    <input type="hidden" name="update_id" id="update_id">
+                                    <label class="form-label">Title *</label>
+                                    <input type="text" name="title" id="utitle" class="form-control">
+                                </div>
+                                <div class="col-12 p-1">
+                                    <label class="form-label">Expense Category *</label>
+                                    <select name="expense_category_id" id="catSelect" class="form-control">
+                                        <option value="">Select Catrgory</option>
+                                        @foreach ($expenseCategory as $cat)
+                                            <option value="{{ $cat->id }}">{{ $cat->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="col-12 p-1">
+                                    <label class="form-label">Description *</label>
+                                    <textarea name="description" id="udescription" cols="10" rows="5" class="form-control"></textarea>
+                                </div>
+                                <div class="col-12 p-1">
+                                    <label class="form-label">Amount *</label>
+                                    <input type="text" id="amount" name="amount" class="form-control">
+                                </div>
+                                <div class="col-12 p-1">
+                                    <label class="form-label">Income Date *</label>
+                                    <input type="date" id="expenseDate" name="expense_date" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="float-end btn m-0 btn-sm bg-gradient-faded-light me-3"
+                            data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="float-end btn m-0 btn-sm bg-gradient-primary">Save changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script>
+        $(document).ready(function() {
+            var table = $('#myTable').DataTable({
+                order: [
+                    [0, 'desc']
+                ],
+                lengthMenu: [5, 10, 15, 20, 25, 30, 35, 40, 45, 50],
+                language: {
+                    paginate: {
+                        next: '&#8594;', // Right arrow
+                        previous: '&#8592;' // Left arrow
+                    }
+                }
+            });
+
+
+            $('.editBtn').click(function() {
+                let id = $(this).data('id');
+                let title = $(this).data('title');
+                let IncomeCategoryId = $(this).data('cat');
+                let description = $(this).data('description');
+                let amount = $(this).data('amount');
+                let expense_date = $(this).data('expense_date');
+
+
+
+                document.getElementById("utitle").value = title;
+                $('#catSelect > option').each(function() {
+                    if ($(this).val() == IncomeCategoryId) {
+                        $(this).attr("selected", "selected");
                     }
                 });
+                document.getElementById("udescription").value = description;
+                document.getElementById("amount").value = amount;
+                document.getElementById("expenseDate").value = expense_date;
+                document.getElementById("update_id").value = id;
+
+
+
             });
-        </script>
+
+
+        });
+    </script>
 @endsection
